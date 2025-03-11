@@ -13,7 +13,7 @@
     <div class="header">
         <div class="nav">
             <h2> Vellora </h2>
-            <a href="home.php">Home</a>
+            <a href="index.php">Home</a>
             <a href="login.php">Menu</a>
             <a href="login.php">Contact Us</a>
             <a href="login.php">LogIn</a>
