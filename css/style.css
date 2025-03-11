@@ -1,1 +1,712 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: url('../image/indexPagePic.jpg') center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* Apply overlay to entire body */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* index.php */
+div.header {
+  width: 100%;
+  padding: 15px 0;
+  background: rgba(0, 0, 0, 0.4);
+  text-align: right;
+  position: relative;
+  z-index: 10;
+}
+
+div.header h2{
+  display: inline;
+  color: #e3f2fd;
+  padding: 8px 15px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+div.header a{
+  font-size: 25px;
+  color: #e3f2fd;
+  padding: 8px 15px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+div.header a:hover , h2:hover{
+  border: 3px solid #115b60;
+  border-radius: 5px;
+  font-weight: bold ;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+div.main-content {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  position: relative;
+  z-index: 5;
+}
+
+div.nav {
+  width: 95%;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+div.banner {
+  background: url('../image/indexPagePic.jpg') center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 60px 0;
+  position: relative;
+}
+
+div.BannerHeader h1 {
+  font-size: 100px;
+  color: #115b60;
+  line-height: 1.1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  margin-bottom: 10px;
+}
+
+div.BannerHeader p {
+  font-size: 40px;
+  color: #e3f2fd;
+  text-transform: uppercase;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  margin-bottom: 30px;
+}
+
+p.BannerTagline {
+  font-size: 25px;
+  color: #ffffff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  margin-bottom: 50px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.signup-button {
+  margin: 30px 0 50px;
+}
+
+.signup-button a {
+  display: inline-block;
+  padding: 15px 40px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #1a237e;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+}
+
+.signup-button a:hover {
+  background: #1a237e;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+div.BannerIcons {
+  margin-top: 50px;
+}
+
+div.BannerIcons a {
+  font-size: 23px;
+  margin: 0 15px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #1a237e;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+div.BannerIcons a:hover {
+  color: #ffffff;
+  background: #234a51;
+  transform: scale(1.1);
+}
+
+.footer {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-bottom {
+  padding: 15px 0;
+  background-color: rgba(51, 51, 51, 0.9);
+  text-align: center;
+  width: 100%;
+}
+
+.footer-bottom p {
+  color: #fff;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+
+/* Signup.php */
+
+/* Sign Up Form Styles */
+
+.signup-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.95);
+  position: relative;
+  z-index: 10;
+}
+
+.signup-form-wrapper {
+  padding: 40px;
+}
+
+.signup-form-wrapper h2 {
+  color: #333333;
+  font-size: 32px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.form-subtitle {
+  color: #666666;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.half {
+  width: 50%;
+}
+
+label {
+  color: #333333;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"] {
+  padding: 12px 15px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus {
+  border-color: #333333;
+  box-shadow: 0 0 0 2px rgba(51, 51, 51, 0.2);
+  outline: none;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: #333333;
+}
+
+.form-checkbox label {
+  font-weight: normal;
+}
+
+.form-checkbox a {
+  color: #333333;
+  text-decoration: underline;
+}
+
+.form-checkbox a:hover {
+  color: #000000;
+}
+
+button.signup-button {
+  background-color: #333333;
+  color: #ffffff;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 10px;
+}
+
+button.signup-button:hover {
+  background-color: #000000;
+  transform: translateY(-2px);
+}
+
+.social-signup {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.social-signup p {
+  color: #666666;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.social-signup p::before,
+.social-signup p::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background-color: #cccccc;
+}
+
+.social-signup p::before {
+  left: 0;
+}
+
+.social-signup p::after {
+  right: 0;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  color: #333333;
+  transition: all 0.3s ease;
+}
+
+.social-button:hover {
+  transform: translateY(-3px);
+}
+
+.social-button.facebook:hover {
+  background-color: #3b5998;
+  color: white;
+}
+
+.social-button.google:hover {
+  background-color: #db4437;
+  color: white;
+}
+
+.social-button.apple:hover {
+  background-color: #000000;
+  color: white;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #666666;
+}
+
+.login-link a {
+  color: #333333;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .signup-container {
+      margin: 20px auto;
+      max-width: 90%;
+  }
+  
+  .signup-form-wrapper {
+      padding: 30px 20px;
+  }
+  
+  .form-row {
+      flex-direction: column;
+      gap: 20px;
+  }
+  
+  .half {
+      width: 100%;
+  }
+}
+
+/* Style for focus state with keyboard navigation */
+:focus-visible {
+  outline: 3px solid rgba(51, 51, 51, 0.5);
+  outline-offset: 2px;
+}
+
+/* login.php */
+/* Login Form Styles */
+
+.login-container {
+  width: 100%;
+  max-width: 450px;
+  margin: 60px auto;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.95);
+  position: relative;
+  z-index: 10;
+}
+
+.login-form-wrapper {
+  padding: 40px;
+}
+
+.login-form-wrapper h2 {
+  color: #333333;
+  font-size: 32px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.form-subtitle {
+  color: #666666;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label {
+  color: #333333;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input[type="email"],
+input[type="password"] {
+  padding: 12px 15px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #333333;
+  box-shadow: 0 0 0 2px rgba(51, 51, 51, 0.2);
+  outline: none;
+}
+
+.forgot-password {
+  text-align: right;
+  margin-top: 5px;
+}
+
+.forgot-password a {
+  color: #666666;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  color: #333333;
+  text-decoration: underline;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: #333333;
+}
+
+.form-checkbox label {
+  font-weight: normal;
+}
+
+button.login-button {
+  background-color: #333333;
+  color: #ffffff;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 10px;
+}
+
+button.login-button:hover {
+  background-color: #000000;
+  transform: translateY(-2px);
+}
+
+.social-login {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.social-login p {
+  color: #666666;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.social-login p::before,
+.social-login p::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background-color: #cccccc;
+}
+
+.social-login p::before {
+  left: 0;
+}
+
+.social-login p::after {
+  right: 0;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  color: #333333;
+  transition: all 0.3s ease;
+}
+
+.social-button:hover {
+  transform: translateY(-3px);
+}
+
+.social-button.facebook:hover {
+  background-color: #3b5998;
+  color: white;
+}
+
+.social-button.google:hover {
+  background-color: #db4437;
+  color: white;
+}
+
+.social-button.apple:hover {
+  background-color: #000000;
+  color: white;
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #666666;
+}
+
+.signup-link a {
+  color: #333333;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .login-container {
+      margin: 30px auto;
+      max-width: 90%;
+  }
+  
+  .login-form-wrapper {
+      padding: 30px 20px;
+  }
+}
+
+/* Style for focus state with keyboard navigation */
+:focus-visible {
+  outline: 3px solid rgba(51, 51, 51, 0.5);
+  outline-offset: 2px;
+}
+
+/* home.php */
+
+body.home{
+  background: url('../image/poolPic.jpg') center center;
+}
