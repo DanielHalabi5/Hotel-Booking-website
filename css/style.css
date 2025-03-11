@@ -704,9 +704,3 @@ button.login-button:hover {
   outline: 3px solid rgba(51, 51, 51, 0.5);
   outline-offset: 2px;
 }
-
-/* home.php */
-
-body.home{
-  background: url('../image/poolPic.jpg') center center;
-}
