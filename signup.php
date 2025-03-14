@@ -49,10 +49,6 @@
                         <label for="terms">I agree to the <a href="terms.php">Terms and Conditions</a></label>
                     </div>
 
-                    <div class="form-checkbox">
-                        <input type="checkbox" id="newsletter" name="newsletter">
-                        <label for="newsletter">Subscribe to our newsletter</label>
-                    </div>
 
                     <button type="submit" class="signup-button">Create Account</button>
 
