@@ -1,9 +1,9 @@
 Project: Hotel Booking Website
 
 Group Members:
-Daniel Halabi (830bak)
-Chady Tabet (829bak)
-Raghed Mallak (827bak)
+-Daniel Halabi (830bak)
+-Chady Tabet (829bak)
+-Raghed Mallak (827bak)
 
 Project :
 The hotel booking website enables users to browse and book available rooms online. It provides real-time updates on room availability based on their reservation dates.
