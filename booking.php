@@ -7,10 +7,10 @@
     <style>
       body {
     font-family: Arial, sans-serif;
-    background-image: url('pic.jpg'); /* Path to your image */
-    background-size: cover; /* Ensures the image covers the entire viewport */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-image: url('pic.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -166,7 +166,7 @@
             document.getElementById("totalPrice").textContent = totalPrice;
         }
 
-        // Initialize total price on page load
+    
         calculateTotal();
     </script>
 
