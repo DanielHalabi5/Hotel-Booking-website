@@ -262,3 +262,91 @@ body {
 .view-btn:hover {
   background-color: #45a049;
 }
+
+/* Booking Form Styles
+-------------------------------------------------- */
+.booking-details-container {
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.booking-info,
+.guest-info,
+.room-info,
+.payment-info,
+.booking-history,
+.booking-actions {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+}
+
+.info-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.info-value {
+  color: #333;
+}
+
+.booking-status-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.submit-btn {
+  padding: 8px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+.booking-form-buttons{
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.back-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.back-btn:hover {
+  background-color: #0069d9;
+}
+
+
+.email-btn {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+}
+
+.cancel-btn{
+  background-color: #dc3545;
+}

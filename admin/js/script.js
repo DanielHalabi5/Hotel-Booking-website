@@ -14,3 +14,16 @@
 
         window.location.href = 'bookings.php?' + urlParams.toString();
     }
+
+    // Function to cancel the booking
+   function cancelBooking(bookingId) {
+    if (confirm('Are you sure you want to cancel this booking?')) {
+      let form = document.querySelector('.status-form[data-booking-id="${bookingId}"]');
+      if (form) {
+        let statusSelect = form.querySelector('select[name="booking_status"]');
+        statusSelect.value = 'cancelled';
+        form.submit();
+      }
+    }
+  }
+  
