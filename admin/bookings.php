@@ -70,17 +70,7 @@ $result = getBookings($conn, $search, $status, $date_from, $date_to, $sort_by, $
                     echo '<td>' . date('M d, Y', strtotime($row['check_in'])) . '</td>';
                     echo '<td>' . date('M d, Y', strtotime($row['check_out'])) . '</td>';
                     echo '<td>$' . number_format($row['total_price'], 2) . '</td>';
-                    echo '<td>';
-                    echo '<select class="status-dropdown" data-booking-id="' . $row['id'] . '">';
-
-                    $statuses = ['pending', 'confirmed', 'cancelled', 'completed'];
-                    foreach ($statuses as $status_option) {
-                        $selected = ($row['booking_status'] == $status_option) ? 'selected' : '';
-                        echo '<option value="' . $status_option . '" ' . $selected . '>' . ucfirst($status_option) . '</option>';
-                    }
-
-                    echo '</select>';
-                    echo '</td>';
+                    echo '<td>' . htmlspecialchars($row['booking_status']) . '</td>';
                     echo '<td>' . date('M d, Y', strtotime($row['booking_date'])) . '</td>';
                     echo '<td class="action-buttons">';
                     echo '<a href="booking-form.php?id=' . $row['id'] . '" class="view-btn">Details</a>';
