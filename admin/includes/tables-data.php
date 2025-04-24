@@ -5,6 +5,63 @@ include('../includes/connection.php');
 
 // ROOMS HANDLERS
 
+$room_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$is_edit = $room_id > 0;
+$is_room_type = isset($_GET['type']) && $_GET['type'] === 'new';
+
+
+$roomTypesQuery = "SELECT id, name FROM room_types ORDER BY name ASC";
+$roomTypesResult = $conn->query($roomTypesQuery);
+
+// Initialize search/filter variables
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$room_type = isset($_GET['room_type']) ? $_GET['room_type'] : '';
+$status = isset($_GET['status']) ? $_GET['status'] : '';
+
+$query = "SELECT r.id, r.room_number, r.status, rt.name as room_type,
+    rt.price_per_night, rt.capacity, rt.category
+    FROM rooms r
+    LEFT JOIN room_types rt ON r.room_type_id = rt.id
+    WHERE 1=1";
+
+$params = [];
+$types = "";
+
+if (!empty($search)) {
+    $query .= " AND (r.room_number LIKE ? OR rt.name LIKE ? OR rt.category LIKE ?)";
+    $search_param = "%$search%";
+    $params[] = $search_param;
+    $params[] = $search_param;
+    $params[] = $search_param;
+    $types .= "sss";
+}
+
+if (!empty($room_type)) {
+    $query .= " AND rt.id = ?";
+    $params[] = $room_type;
+    $types .= "i";
+}
+
+if (!empty($status)) {
+    $query .= " AND r.status = ?";
+    $params[] = $status;
+    $types .= "s";
+}
+
+$query .= " ORDER BY r.room_number ASC";
+
+
+$stmt = $conn->prepare($query);
+if (!empty($params)) {
+    $stmt->bind_param($types, ...$params);
+}
+$stmt->execute();
+$result = $stmt->get_result();
+
+$roomTypesQuery = "SELECT id, name FROM room_types ORDER BY name ASC";
+$roomTypesResult = $conn->query($roomTypesQuery);
+
+
 
 // END ROOMS HANDLERS
 
