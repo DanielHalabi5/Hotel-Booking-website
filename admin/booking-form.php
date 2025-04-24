@@ -39,15 +39,15 @@ $error_message = $bookingData['error_message'];
 <?php endif; ?>
 
 <!-- Booking Form Buttons -->
-<div class="booking-form-buttons">
-    <a href="bookings.php" class="booking-form-buttons back-btn ">
+<div class="form-buttons">
+    <a href="bookings.php" class="form-buttons back-btn ">
         <i class="fas fa-arrow-left"></i> Back to Bookings
     </a>
-    <button class="booking-form-buttons email-btn">
+    <button class="form-buttons email-btn">
         <i class="fas fa-envelope"></i> Email to Guest
     </button>
     <?php if ($booking['booking_status'] != 'cancelled'): ?>
-        <button class="booking-form-buttons cancel-btn" onclick="cancelBooking(<?php echo $booking['id']; ?>)">
+        <button class="form-buttons cancel-btn" onclick="cancelBooking(<?php echo $booking['id']; ?>)">
             Cancel Booking
         </button>
     <?php endif; ?>

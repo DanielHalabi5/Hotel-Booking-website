@@ -35,8 +35,8 @@ $result = getBookings($conn, $search, $status, $date_from, $date_to, $sort_by, $
         <input type="hidden" name="sort_by" value="<?php echo htmlspecialchars($sort_by); ?>">
         <input type="hidden" name="sort_order" value="<?php echo htmlspecialchars($sort_order); ?>">
 
-        <button type="submit">Filter</button>
-        <button type="button" onclick="window.location.href='bookings.php'">Reset</button>
+        <button class="form-buttons filter-button" type="submit">Filter</button>
+        <button class="form-buttons reset-filter" type="button" onclick="window.location.href='bookings.php'">Reset</button>
     </form>
 </div>
 <!-- End Filters Section -->

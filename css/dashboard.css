@@ -1,273 +1,375 @@
 
 body {
-    min-height: 100vh;
-    scroll-behavior: smooth;
-    text-rendering: optimizeSpeed;
-    line-height: 1.5;
-    font-family: Arial, sans-serif;
-  }
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: Arial, sans-serif;
+}
 
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
+}
+
+/* Button Default CSS
+--------------------------------------------------*/
+.form-buttons{
+padding: 10px 15px;
+border-radius: 5px;
+text-decoration: none;
+cursor: pointer;
+font-weight: 500;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+transition: background-color 0.3s ease;
+}
+.filter-button, 
+.reset-filter {
+background-color: #115b60;
+color: white;
+border: none;
+padding: 10px 15px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 14px;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+transition: background-color 0.3s ease;
+}
+
+.filter-button:hover {
+background-color: #0a3b3e;
+}
+
+.reset-filter {
+background-color: #6c757d;
+text-decoration: none;
+}
+
+.reset-filter:hover {
+background-color: #5a6268;
+}
 
 /* Dashboard Layout
 -------------------------------------------------- */
 #DbContainer {
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
-  }
-  
-  .DBContentConainer {
-    width: 80%;
-    background: #e3f2fd;
-  }
-  
-  .DBContent {
-    padding: 30px 20px;
-  }
-  
-  .CBody {
-    background: white;
-    min-height: 800px;
-    height: 100%;
-    padding: 25px;
-    margin: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .CBody h1 {
-    color: #115b60;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-  }
-  
-  .CBody h2 {
-    margin: 30px 0 15px;
-    color: #444;
-    font-size: 1.5rem;
-  }
-  
-  /* Sidebar Styles
-  -------------------------------------------------- */
-  div.sidebar {
-    width: 20%;
-    height: auto;
-    background: #115b60;
-    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  h3.DBLogo {
-    color: #e3f2fd;
-    text-align: center;
-    font-size: 25px;
-    padding: 30px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  }
-  
-  div.sidebar_user {
-    text-align: center;
-    position: relative;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #0a3b3e;
-  }
-  
-  div.sidebar_user img {
-    width: 80px;
-    height: 70px;
-    display: inline-block;
-    border-radius: 50%;
-    border: 2px solid #e3f2fd;
-    margin-right: 5px;
-    vertical-align: middle;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  div.sidebar_user span {
-    top: 20%;
-    font-size: 14px;
-    text-transform: uppercase;
-    color: #e3f2fd;
-    display: inline-block;
-    font-weight: bold;
-  }
-  
-  /* Menu Styles
-  -------------------------------------------------- */
-  ul.MenuList {
-    margin-top: 20px;
-  }
-  
-  ul.MenuList li.liMainMenu {
-    text-transform: uppercase;
-  }
-  
-  ul.MenuList li.liMainMenu a {
-    text-decoration: none;
-    color: #e3f2fd;
-    display: block;
-    font-size: 14px;
-    padding: 15px;
-    transition: all 0.3s ease;
-  }
-  
-  ul.MenuList li.liMainMenu a i {
-    font-size: 20px;
-    width: 30px;
-  }
-  
-  ul.MenuList li.liMainMenu:hover {
-    background: #0a3b3e;
-    color: white;
-    transition: 0.3s all;
-  }
-  
-  a.subMenuLink {
-    padding-left: 35px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-transform: none;
-    font-size: 13px;
-  }
-  
-  a.subMenuLink i {
-    font-size: 16px !important; 
-  }
-  
-  ul.subMenus {
-    background: #0a3b3e;
-    display: none;
-  }
-  
-  i.mainMenuIconArrow {
-    float: right;
-    font-size: 14px !important;
-    padding-top: 8px;
-    padding-right: 10px;
-  }
-  
-  .subMenuActive {
-    font-weight: bold;
-    border-top: 2px solid #e3f2fd;
-    border-bottom: 2px solid #e3f2fd;
-    background: rgba(227, 242, 253, 0.1);
-  }
-  
-  /* Navigation Bar
-  -------------------------------------------------- */
-  div.nav {
-    background: white;
-    padding: 20px;
-    color: #333333;
-    font-size: 20px;
-    text-decoration: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  div.nav a {
-    color: #115b60;
-    font-size: 20px;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  div.nav a:hover {
-    color: #0a3b3e;
-  }
-  
-  #LogoutBTN {
-    float: right;
-    padding: 5px 15px;
-    background-color: #115b60;
-    color: white;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  #LogoutBTN:hover {
-    background-color: #0a3b3e;
-  }
-
-  /* Booking  Styles
-  -------------------------------------------------- */
-.booking-filters {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.DBContentConainer {
+  width: 80%;
+  background: #e3f2fd;
+}
+
+.DBContent {
+  padding: 30px 20px;
+}
+
+.CBody {
+  background: white;
+  min-height: 800px;
+  height: 100%;
+  padding: 25px;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.CBody h1 {
+  color: #115b60;
   margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.CBody h2 {
+  margin: 30px 0 15px;
+  color: #444;
+  font-size: 1.5rem;
+}
+
+/* Sidebar Styles
+-------------------------------------------------- */
+div.sidebar {
+  width: 20%;
+  height: auto;
+  background: #115b60;
+  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+h3.DBLogo {
+  color: #e3f2fd;
+  text-align: center;
+  font-size: 25px;
+  padding: 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+div.sidebar_user {
+  text-align: center;
+  position: relative;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #0a3b3e;
+}
+
+div.sidebar_user img {
+  width: 80px;
+  height: 70px;
+  display: inline-block;
+  border-radius: 50%;
+  border: 2px solid #e3f2fd;
+  margin-right: 5px;
+  vertical-align: middle;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+div.sidebar_user span {
+  top: 20%;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #e3f2fd;
+  display: inline-block;
+  font-weight: bold;
+}
+
+/* Menu Styles
+-------------------------------------------------- */
+ul.MenuList {
+  margin-top: 20px;
+}
+
+ul.MenuList li.liMainMenu {
+  text-transform: uppercase;
+}
+
+ul.MenuList li.liMainMenu a {
+  text-decoration: none;
+  color: #e3f2fd;
+  display: block;
+  font-size: 14px;
   padding: 15px;
-  background-color: #f5f5f5;
+  transition: all 0.3s ease;
+}
+
+ul.MenuList li.liMainMenu a i {
+  font-size: 20px;
+  width: 30px;
+}
+
+ul.MenuList li.liMainMenu:hover {
+  background: #0a3b3e;
+  color: white;
+  transition: 0.3s all;
+}
+
+a.subMenuLink {
+  padding-left: 35px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-transform: none;
+  font-size: 13px;
+}
+
+a.subMenuLink i {
+  font-size: 16px !important; 
+}
+
+ul.subMenus {
+  background: #0a3b3e;
+  display: none;
+}
+
+i.mainMenuIconArrow {
+  float: right;
+  font-size: 14px !important;
+  padding-top: 8px;
+  padding-right: 10px;
+}
+
+.subMenuActive {
+  font-weight: bold;
+  border-top: 2px solid #e3f2fd;
+  border-bottom: 2px solid #e3f2fd;
+  background: rgba(227, 242, 253, 0.1);
+}
+
+/* Navigation Bar
+-------------------------------------------------- */
+div.nav {
+  background: white;
+  padding: 20px;
+  color: #333333;
+  font-size: 20px;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+div.nav a {
+  color: #115b60;
+  font-size: 20px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+div.nav a:hover {
+  color: #0a3b3e;
+}
+
+#LogoutBTN {
+  float: right;
+  padding: 5px 15px;
+  background-color: #115b60;
+  color: white;
   border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+#LogoutBTN:hover {
+  background-color: #0a3b3e;
+}
+
+
+  /* Room Management Styles
+-------------------------------------------------- */
+.filter-container {
+background-color: #f9f9f9;
+padding: 15px;
+border-radius: 8px;
+margin-bottom: 20px;
+box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.filter-form {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+align-items: center;
+}
+
+.filter-group {
+flex: 1;
+min-width: 200px;
+}
+
+.filter-group input, 
+.filter-group select {
+width: 100%;
+padding: 10px;
+border: 1px solid #ddd;
+border-radius: 5px;
+}
+
+.rooms table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+background: white;
+box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+border-radius: 5px;
+overflow: hidden;
+}
+
+.rooms table thead th {
+background-color: #115b60;
+color: white;
+padding: 14px;
+font-weight: 600;
+text-align: left;
+font-size: 14px;
+}
+
+.rooms table tbody td {
+padding: 14px;
+border-bottom: 1px solid #e0e0e0;
+color: #333333;
+font-size: 14px;
+}
+
+.rooms table tbody tr:hover {
+background-color: #f5f5f5;
+transition: background-color 0.2s ease;
+}
+
+.status-badge {
+display: inline-block;
+padding: 5px 10px;
+border-radius: 20px;
+font-size: 12px;
+font-weight: 600;
+text-align: center;
+}
+
+
+/* Booking  Styles
+-------------------------------------------------- */
+.booking-filters {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+margin-bottom: 20px;
+padding: 15px;
+background-color: #f5f5f5;
+border-radius: 5px;
 }
 
 .booking-filters input, 
 .booking-filters select {
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+padding: 8px;
+border: 1px solid #ddd;
+border-radius: 4px;
 }
 
-.booking-filters button {
-  padding: 8px 15px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
 
-.booking-filters button:hover {
-  background-color: #45a049;
-}
 
 /* Booking table */
 .booking-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
 }
 
 .booking-table th, 
 .booking-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+padding: 12px;
+text-align: left;
+border-bottom: 1px solid #ddd;
 }
 
 .booking-table th {
-  background-color: #f2f2f2;
-  cursor: pointer;
+background-color: #f2f2f2;
+cursor: pointer;
 }
 
 .booking-table th:hover {
-  background-color: #e6e6e6;
+background-color: #e6e6e6;
 }
-    
+  
 .view-btn {
-  padding: 8px 15px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+padding: 8px 15px;
+background-color: #115b60;
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
 }
 
 .view-btn:hover {
-  background-color: #45a049;
+background-color: #115b60;
 }
 
 /* Booking Form Styles
 -------------------------------------------------- */
 .booking-details-container {
-  grid-template-columns: 2fr 1fr;
-  gap: 20px;
+grid-template-columns: 2fr 1fr;
+gap: 20px;
 }
 
 .booking-info,
@@ -276,77 +378,65 @@ body {
 .payment-info,
 .booking-history,
 .booking-actions {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 20px;
+background-color: #fff;
+border-radius: 8px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+padding: 20px;
+margin-bottom: 20px;
 }
 .info-grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 10px;
+display: grid;
+grid-template-columns: 1fr 2fr;
+gap: 10px;
 }
 
 .info-label {
-  font-weight: bold;
-  color: #555;
+font-weight: bold;
+color: #555;
 }
 
 .info-value {
-  color: #333;
+color: #333;
 }
 
 .booking-status-badge {
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 0.9em;
-  font-weight: bold;
-  margin-top: 5px;
+display: inline-block;
+padding: 5px 10px;
+border-radius: 15px;
+font-size: 0.9em;
+font-weight: bold;
+margin-top: 5px;
 }
 
 .submit-btn {
-  padding: 8px 15px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+padding: 8px 15px;
+background-color: #115b60;
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
 }
 
 .submit-btn:hover {
-  background-color: #45a049;
-}
-
-.booking-form-buttons{
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-decoration: none;
-  cursor: pointer;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.3s ease;
+background-color: #115b60;
 }
 
 .back-btn {
-  background-color: #007bff;
-  color: white;
+background-color: #007bff;
+color: white;
 }
 
 .back-btn:hover {
-  background-color: #0069d9;
+background-color: #0069d9;
 }
 
 
 .email-btn {
-  background-color: #17a2b8;
-  color: white;
-  border: none;
+background-color: #17a2b8;
+color: white;
+border: none;
 }
 
 .cancel-btn{
-  background-color: #dc3545;
+background-color: #dc3545;
 }
