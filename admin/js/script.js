@@ -18,7 +18,7 @@
     // Function to cancel the booking
    function cancelBooking(bookingId) {
     if (confirm('Are you sure you want to cancel this booking?')) {
-      let form = document.querySelector('.status-form[data-booking-id="${bookingId}"]');
+      let form = document.querySelector('.status-form[data-booking-id=' + bookingId );
       if (form) {
         let statusSelect = form.querySelector('select[name="booking_status"]');
         statusSelect.value = 'cancelled';
@@ -26,4 +26,10 @@
       }
     }
   }
+
+  function confirmDelete(roomId) {
+    if (confirm("Are you sure you want to delete this room? This action cannot be undone.")) {
+        window.location.href = "rooms.php?delete=" + roomId;
+    }
+}
   

@@ -61,6 +61,177 @@ $result = $stmt->get_result();
 $roomTypesQuery = "SELECT id, name FROM room_types ORDER BY name ASC";
 $roomTypesResult = $conn->query($roomTypesQuery);
 
+// If editing existing room, fetch data
+if ($is_edit && !$is_room_type) {
+    $roomQuery = "SELECT r.*, rt.id as room_type_id 
+                  FROM rooms r
+                  LEFT JOIN room_types rt ON r.room_type_id = rt.id
+                  WHERE r.id = ?";
+    $stmt = $conn->prepare($roomQuery);
+    $stmt->bind_param("i", $room_id);
+    $stmt->execute();
+    $room = $stmt->get_result()->fetch_assoc();
+
+    if (!$room) {
+        header("Location: rooms.php");
+        exit;
+    }
+}
+
+// If editing room type, fetch data
+if ($is_room_type && $room_id > 0) {
+    $roomTypeQuery = "SELECT * FROM room_types WHERE id = ?";
+    $stmt = $conn->prepare($roomTypeQuery);
+    $stmt->bind_param("i", $room_id);
+    $stmt->execute();
+    $roomType = $stmt->get_result()->fetch_assoc();
+
+    if (!$roomType) {
+        header("Location: rooms.php");
+        exit;
+    }
+}
+
+// Room form submission
+if (isset($_POST['submit_room'])) {
+    $room_number = $_POST['room_number'];
+    $room_type_id = $_POST['room_type_id'];
+    $status = $_POST['status'];
+
+    if ($is_edit) {
+        $updateQuery = "UPDATE rooms SET room_number = ?, room_type_id = ?, status = ? WHERE id = ?";
+        $stmt = $conn->prepare($updateQuery);
+        $stmt->bind_param("sisi", $room_number, $room_type_id, $status, $room_id);
+
+        if ($stmt->execute()) {
+            if (isset($_POST['price_per_night'])) {
+                $price_per_night = $_POST['price_per_night'];
+                $updatePriceQuery = "UPDATE room_types SET price_per_night = ? WHERE id = ?";
+                $priceStmt = $conn->prepare($updatePriceQuery);
+                $priceStmt->bind_param("di", $price_per_night, $room_type_id);
+                $priceStmt->execute();
+            }
+            
+            $success_message = "Room updated successfully!";
+        } else {
+            $error_message = "Error updating room: " . $conn->error;
+        }
+    } else {
+        $insertQuery = "INSERT INTO rooms (room_number, room_type_id, status) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($insertQuery);
+        $stmt->bind_param("sis", $room_number, $room_type_id, $status);
+
+        if ($stmt->execute()) {
+            if (isset($_POST['price_per_night'])) {
+                $price_per_night = $_POST['price_per_night'];
+                $updatePriceQuery = "UPDATE room_types SET price_per_night = ? WHERE id = ?";
+                $priceStmt = $conn->prepare($updatePriceQuery);
+                $priceStmt->bind_param("di", $price_per_night, $room_type_id);
+                $priceStmt->execute();
+            }
+            
+            $success_message = "Room added successfully!";
+            $room = null;
+        } else {
+            $error_message = "Error adding room: " . $conn->error;
+        }
+    }
+}
+
+// Room type form submission
+if (isset($_POST['submit_room_type'])) {
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $price_per_night = $_POST['price_per_night'];
+    $capacity = $_POST['capacity'];
+    $room_size = $_POST['room_size'];
+    $category = $_POST['category'];
+
+
+    // Handle image upload
+    $image_url = '';
+    if (isset($_FILES['room_image']) && $_FILES['room_image']['error'] == 0) {
+        $upload_dir = '../uploads/rooms/';
+
+        if (!file_exists($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+
+        $file_name = time() . '_' . basename($_FILES['room_image']['name']);
+        $target_file = $upload_dir . $file_name;
+
+        $check = getimagesize($_FILES['room_image']['tmp_name']);
+        if ($check !== false) {
+            if (move_uploaded_file($_FILES['room_image']['tmp_name'], $target_file)) {
+                $image_url = 'uploads/rooms/' . $file_name;
+            } else {
+                $error_message = "Error uploading file.";
+            }
+        } else {
+            $error_message = "File is not an image.";
+        }
+    } else if ($is_room_type && $room_id > 0 && empty($_FILES['room_image']['name'])) {
+        $image_url = $roomType['image_url'];
+    }
+
+    if ($is_room_type && $room_id > 0) {
+        $updateQuery = "UPDATE room_types SET name = ?, description = ?, price_per_night = ?, 
+                        capacity = ?, room_size = ?, category = ?";
+
+        $params = [$name, $description, $price_per_night, $capacity, $room_size, $category];
+        $types = "ssdiis";
+
+        if (!empty($image_url)) {
+            $updateQuery .= ", image_url = ?";
+            $params[] = $image_url;
+            $types .= "s";
+        }
+
+        $updateQuery .= " WHERE id = ?";
+        $params[] = $room_id;
+        $types .= "i";
+
+        $stmt = $conn->prepare($updateQuery);
+        $stmt->bind_param($types, ...$params);
+
+        if ($stmt->execute()) {
+            $success_message = "Room type updated successfully!";
+        } else {
+            $error_message = "Error updating room type: " . $conn->error;
+        }
+    } else {
+        // Insert new room type
+        $insertQuery = "INSERT INTO room_types (name, description, price_per_night, capacity, 
+                       room_size, category, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($insertQuery);
+        $stmt->bind_param("ssdisss", $name, $description, $price_per_night, $capacity, $room_size, $category, $image_url);
+
+        if ($stmt->execute()) {
+            $success_message = "Room type added successfully!";
+            $roomType = null;
+        } else {
+            $error_message = "Error adding room type: " . $conn->error;
+        }
+    }
+}
+
+// Handle room deletion
+if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
+    $room_id = $_GET['delete'];
+    $deleteQuery = "DELETE FROM rooms WHERE id = ?";
+
+    $stmt = $conn->prepare($deleteQuery);
+    $stmt->bind_param("i", $room_id);
+
+    if ($stmt->execute()) {
+        $success_message = "Room deleted successfully!";
+        header("Location: rooms.php?deleted=1");
+        exit();
+    } else {
+        $error_message = "Error deleting room: " . $conn->error;
+    }
+    $stmt->close();
+}
 
 
 // END ROOMS HANDLERS

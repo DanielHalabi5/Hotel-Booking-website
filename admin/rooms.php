@@ -5,10 +5,10 @@
 
 <!-- Action Buttons -->
 <div class="action-buttons">
-    <a href="room-form.php" class="btn btn-success">
+    <a href="room-form.php" class="form-buttons nav-button">
         <i class="fas fa-plus"></i> Add New Room
     </a>
-    <a href="room-form.php?type=new" class="btn btn-success">
+    <a href="room-form.php?type=new" class="form-buttons nav-button">
         <i class="fas fa-plus"></i> Add Room Type
     </a>
 </div>
@@ -80,6 +80,14 @@
                         <td><?php echo htmlspecialchars($row['capacity']); ?> guests</td>
                         <td>$<?php echo htmlspecialchars(number_format($row['price_per_night'], 2)); ?></td>
                         <td><span class="status-badge <?php echo $statusClass; ?>"><?php echo ucfirst(htmlspecialchars($row['status'])); ?></span></td>
+                        <td class="actions">
+                            <a href="room-form.php?id=<?php echo $row['id']; ?>" class="table-buttons edit-button" title="Edit Room">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="javascript:void(0);" onclick="confirmDelete(<?php echo $row['id']; ?>)" class="table-buttons delete-button" title="Delete Room">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
                     </tr>
             <?php
                 }
@@ -91,4 +99,5 @@
     </table>
     <p class="roomCount">Total: <?php echo $result->num_rows; ?> rooms</p>
 </div>
+
 <?php require_once("includes/footer.php") ?>
