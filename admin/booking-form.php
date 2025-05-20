@@ -1,12 +1,27 @@
 <?php
 
 include('../includes/connection.php');
-include('includes/tables-data.php');
+include('includes/booking-handlers.php');
+
+// Add debugging
+error_log("Booking form loaded with ID: " . (isset($_GET['id']) ? $_GET['id'] : 'none'));
+
+if (isset($_GET['action'], $_GET['id']) && $_GET['action'] == 'cancel') {
+    updateBookingStatus($conn, $_GET['id'], 'cancelled');
+    header("Location: booking-form.php?id=" . $_GET['id'] . "&status_updated=1");
+    exit;
+}
 
 $bookingData = processBookingForm();
 
+// Debug output
+error_log("Booking data: " . ($bookingData ? "Found" : "Not found"));
+
 if (!$bookingData) {
-    header('Location: bookings.php');
+    // Let's change this to be explicit about where we're redirecting
+    header('Location: bookings.php?error=booking_not_found');
+    // You can also add a debug log here
+    error_log("Redirecting to bookings.php due to missing booking data");
     exit;
 }
 
@@ -15,7 +30,11 @@ $duration = $bookingData['duration'];
 $success_message = $bookingData['success_message'];
 $error_message = $bookingData['error_message'];
 
+if (isset($_GET['status_updated'])) {
+    $success_message = "Booking status updated successfully!";
+}
 ?>
+
 
 <!-- Booking Form  -->
 
@@ -148,14 +167,28 @@ $error_message = $bookingData['error_message'];
         <div class="payment-info">
             <h2>Payment Information</h2>
             <div class="info-grid">
-                <div class="info-label">Price per Night:</div>
+                <div class="info-label">Base Price per Night:</div>
                 <div class="info-value">$<?php echo number_format($booking['price_per_night'], 2); ?></div>
+
+                <?php if (isset($booking['discount_percentage']) && $booking['discount_percentage'] > 0): ?>
+                    <div class="info-label">Discount:</div>
+                    <div class="info-value"><span class="discount-badge"><?php echo $booking['discount_percentage']; ?>% OFF</span></div>
+
+                    <div class="info-label">Discounted Price per Night:</div>
+                    <div class="info-value">$<?php echo number_format($booking['discounted_price_per_night'], 2); ?></div>
+                <?php endif; ?>
 
                 <div class="info-label">Number of Nights:</div>
                 <div class="info-value"><?php echo $duration; ?></div>
 
                 <div class="info-label">Subtotal:</div>
-                <div class="info-value">$<?php echo number_format($booking['price_per_night'] * $duration, 2); ?></div>
+                <div class="info-value">
+                    $<?php
+                        $price_per_night = isset($booking['discounted_price_per_night']) ?
+                            $booking['discounted_price_per_night'] : $booking['price_per_night'];
+                        echo number_format($price_per_night * $duration, 2);
+                        ?>
+                </div>
 
                 <?php if (!empty($booking['additional_services'])): ?>
                     <div class="info-label">Additional Services:</div>

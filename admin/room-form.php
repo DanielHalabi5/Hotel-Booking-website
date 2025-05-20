@@ -1,4 +1,15 @@
-<?php include("includes/tables-data.php") ?>
+<?php include("includes/room-handlers.php");
+
+// Ensure we have the correct calculations for discounted prices
+if (isset($room['price_per_night']) && isset($room['discount_percentage'])) {
+    if ($room['discount_percentage'] > 0) {
+        $room['discounted_price'] = $room['price_per_night'] * (1 - $room['discount_percentage']/100);
+    } else {
+        $room['discounted_price'] = $room['price_per_night'];
+    }
+}
+
+?>
 
 <?php include("includes/header.php") ?>
 
@@ -24,72 +35,68 @@
 
 <?php if ($is_room_type): ?>
     <!-- Room Type Form -->
-    <form method="post" class="add-user-form" enctype="multipart/form-data">
+    <form action="" method="post" class="room-form" enctype="multipart/form-data">
+        <!-- Room Type fields -->
         <div class="form-group">
-            <label for="name">Room Type Name</label>
-            <input type="text" id="name" name="name" required
-                value="<?php echo isset($roomType['name']) ? htmlspecialchars($roomType['name']) : ''; ?>">
+            <label for="name">Room Type Name:</label>
+            <input type="text" name="name" id="name" 
+                   value="<?php echo isset($roomType['name']) ? htmlspecialchars($roomType['name']) : ''; ?>" 
+                   required>
         </div>
-
+        
         <div class="form-group">
-            <label for="description">Description</label>
-            <textarea id="description" name="description" rows="5" required><?php echo isset($roomType['description']) ? htmlspecialchars($roomType['description']) : ''; ?></textarea>
+            <label for="description">Description:</label>
+            <textarea name="description" id="description" rows="4" required><?php echo isset($roomType['description']) ? htmlspecialchars($roomType['description']) : ''; ?></textarea>
         </div>
-
+        
         <div class="form-group">
-            <label for="price_per_night">Price Per Night ($)</label>
-            <input type="number" step="0.01" id="price_per_night" name="price_per_night" required
-                value="<?php echo isset($roomType['price_per_night']) ? htmlspecialchars($roomType['price_per_night']) : ''; ?>">
+            <label for="price_per_night">Price Per Night ($):</label>
+            <input type="number" step="0.01" min="0" name="price_per_night" id="price_per_night" 
+                   value="<?php echo isset($roomType['price_per_night']) ? htmlspecialchars($roomType['price_per_night']) : ''; ?>" 
+                   required>
         </div>
-
+        
         <div class="form-group">
-            <label for="capacity">Capacity (Max Guests)</label>
-            <input type="number" id="capacity" name="capacity" required
-                value="<?php echo isset($roomType['capacity']) ? htmlspecialchars($roomType['capacity']) : ''; ?>">
+            <label for="capacity">Capacity (Guests):</label>
+            <input type="number" min="1" name="capacity" id="capacity" 
+                   value="<?php echo isset($roomType['capacity']) ? htmlspecialchars($roomType['capacity']) : ''; ?>" 
+                   required>
         </div>
-
+        
         <div class="form-group">
-            <label for="room_size">Room Size</label>
-            <select id="room_size" name="room_size" required>
-                <option value="small" <?php if (isset($roomType['room_size']) && $roomType['room_size'] == 'small') echo 'selected'; ?>>Small</option>
-                <option value="medium" <?php if (isset($roomType['room_size']) && $roomType['room_size'] == 'medium') echo 'selected'; ?>>Medium</option>
-                <option value="large" <?php if (isset($roomType['room_size']) && $roomType['room_size'] == 'large') echo 'selected'; ?>>Large</option>
-            </select>
+            <label for="room_size">Room Size (sq ft):</label>
+            <input type="number" min="0" name="room_size" id="room_size" 
+                   value="<?php echo isset($roomType['room_size']) ? htmlspecialchars($roomType['room_size']) : ''; ?>" 
+                   required>
         </div>
-
+        
         <div class="form-group">
-            <label for="category">Category</label>
-            <select id="category" name="category" required>
-                <option value="">Select Category</option>
-                <option value="Standard" <?php if (isset($roomType['category']) && $roomType['category'] == 'Standard') echo 'selected'; ?>>Standard</option>
-                <option value="Deluxe" <?php if (isset($roomType['category']) && $roomType['category'] == 'Deluxe') echo 'selected'; ?>>Deluxe</option>
-                <option value="Suite" <?php if (isset($roomType['category']) && $roomType['category'] == 'Suite') echo 'selected'; ?>>Suite</option>
-                <option value="Executive" <?php if (isset($roomType['category']) && $roomType['category'] == 'Executive') echo 'selected'; ?>>Executive</option>
-                <option value="Presidential" <?php if (isset($roomType['category']) && $roomType['category'] == 'Presidential') echo 'selected'; ?>>Presidential</option>
-            </select>
+            <label for="category">Category:</label>
+            <input type="text" name="category" id="category" 
+                   value="<?php echo isset($roomType['category']) ? htmlspecialchars($roomType['category']) : ''; ?>" 
+                   required>
         </div>
-
+        
         <div class="form-group">
-            <label for="room_image">Room Image</label>
+            <label for="room_image">Room Image:</label>
             <?php if (isset($roomType['image_url']) && !empty($roomType['image_url'])): ?>
                 <div class="current-image">
-                    <p>Current Image:</p>
-                    <img src="../<?php echo htmlspecialchars($roomType['image_url']); ?>" alt="Room Image" style="max-width: 200px; margin: 10px 0;">
+                    <img src="../<?php echo htmlspecialchars($roomType['image_url']); ?>" alt="Current Room Image" style="max-width: 200px;">
+                    <p>Current image. Upload a new one to replace.</p>
                 </div>
             <?php endif; ?>
-            <input type="file" id="room_image" name="room_image" accept="image/*" <?php echo $is_edit ? '' : 'required'; ?>>
-            <p class="helper-text">Upload a high-quality image that showcases the room. Max file size: 5MB.</p>
+            <input type="file" name="room_image" id="room_image" accept="image/*">
         </div>
-
-        <button type="submit" name="submit_room_type" class="submit-button">
-            <i class="fas fa-save"></i>
-            <?php echo $is_edit ? "Update Room Type" : "Add Room Type"; ?>
-        </button>
+        
+        <div class="form-buttons">
+            <button type="submit" name="submit_room_type" class="form-buttons submit-button">
+                <i class="fas fa-save"></i> <?php echo $is_edit ? 'Update Room Type' : 'Add Room Type'; ?>
+            </button>
+        </div>
     </form>
-
 <?php else: ?>
     <!-- Room Form -->
-    <form method="post" class="add-user-form">
+    <form method="post" class="room-form">
         <div class="form-group">
             <label for="room_number">Room Number</label>
             <input type="text" id="room_number" name="room_number" required
@@ -120,7 +127,34 @@
             </select>
         </div>
 
-        <button type="submit" name="submit_room" class="submit-button">
+        <div class="form-group">
+            <label for="discount_percentage">Discount (%):</label>
+            <input type="number" min="0" max="100" step="0.01"
+                name="discount_percentage" id="discount_percentage"
+                value="<?php echo isset($room['discount_percentage']) ? $room['discount_percentage'] : '0.00'; ?>"
+                class="form-control">
+            <small class="form-text text-muted">Enter percentage discount for this specific room (0-100%)</small>
+        </div>
+
+        <!-- If editing, show current base price and calculated discounted price -->
+        <?php if (isset($room['price_per_night']) && isset($room['discount_percentage'])): ?>
+        <div class="form-group">
+            <label>Base Price:</label>
+            <p class="price-display">$<?php echo number_format($room['price_per_night'], 2); ?></p>
+        </div>
+        
+        <?php if ($room['discount_percentage'] > 0): ?>
+        <div class="form-group">
+            <label>Discounted Price:</label>
+            <p class="price-display discounted-price">
+                $<?php echo number_format($room['discounted_price'], 2); ?>
+                <span class="discount-badge"><?php echo $room['discount_percentage']; ?>% OFF</span>
+            </p>
+        </div>
+        <?php endif; ?>
+        <?php endif; ?>
+
+        <button type="submit" name="submit_room" class="form-buttons submit-button">
             <i class="fas fa-save"></i>
             <?php echo $is_edit ? "Update Room" : "Add Room"; ?>
         </button>

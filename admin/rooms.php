@@ -1,4 +1,10 @@
-<?php include('includes/tables-data.php') ?>
+<?php include("includes/room-handlers.php");
+
+$success_message = $error_message = '';
+
+handleRoomSoftDelete($conn);
+?>
+
 <?php require_once("includes/header.php") ?>
 
 <h1 class="section_header">Room Management</h1>
@@ -22,7 +28,10 @@
         <div class="filter-group">
             <select name="room_type">
                 <option value="">All Room Types</option>
-                <?php while ($roomType = $roomTypesResult->fetch_assoc()): ?>
+                <?php
+                // Reset the result pointer
+                $roomTypesResult->data_seek(0);
+                while ($roomType = $roomTypesResult->fetch_assoc()): ?>
                     <option value="<?php echo $roomType['id']; ?>" <?php if ($room_type == $roomType['id']) echo 'selected'; ?>>
                         <?php echo htmlspecialchars($roomType['name']); ?>
                     </option>
@@ -35,6 +44,12 @@
                 <option value="available" <?php if ($status == 'available') echo 'selected'; ?>>Available</option>
                 <option value="occupied" <?php if ($status == 'occupied') echo 'selected'; ?>>Occupied</option>
                 <option value="maintenance" <?php if ($status == 'maintenance') echo 'selected'; ?>>Maintenance</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <select name="discount">
+                <option value="">All Rooms</option>
+                <option value="discount" <?php if (isset($_GET['discount']) && $_GET['discount'] == 'discount') echo 'selected'; ?>>Discounted Only</option>
             </select>
         </div>
         <button type="submit" class="form-buttons filter-button">
@@ -55,7 +70,9 @@
                 <th>Room Type</th>
                 <th>Category</th>
                 <th>Capacity</th>
-                <th>Price/Night</th>
+                <th>Base Price</th>
+                <th>Discount</th>
+                <th>Final Price</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -64,21 +81,32 @@
             <?php
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    $statusClass = '';
-                    if ($row['status'] == 'available') {
-                        $statusClass = 'status-available';
-                    } elseif ($row['status'] == 'occupied') {
-                        $statusClass = 'status-occupied';
-                    } elseif ($row['status'] == 'maintenance') {
-                        $statusClass = 'status-maintenance';
-                    }
+                    $statusClass = 'status-' . $row['status'];
+
+                    $hasDiscount = isset($row['discount_percentage']) && $row['discount_percentage'] > 0;
+                    $basePrice = $row['price_per_night'];
+                    $finalPrice = isset($row['discounted_price']) ? $row['discounted_price'] : $basePrice;
             ?>
-                    <tr>
+                    <tr <?php echo $hasDiscount ? 'class="discounted-row"' : ''; ?>>
                         <td><?php echo htmlspecialchars($row['room_number']); ?></td>
                         <td><?php echo htmlspecialchars($row['room_type']); ?></td>
                         <td><?php echo htmlspecialchars($row['category']); ?></td>
                         <td><?php echo htmlspecialchars($row['capacity']); ?> guests</td>
-                        <td>$<?php echo htmlspecialchars(number_format($row['price_per_night'], 2)); ?></td>
+                        <td>$<?php echo htmlspecialchars(number_format($basePrice, 2)); ?></td>
+                        <td>
+                            <?php if ($hasDiscount): ?>
+                                <span class="discount-badge"><?php echo htmlspecialchars($row['discount_percentage']); ?>%</span>
+                            <?php else: ?>
+                                -
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if ($hasDiscount): ?>
+                                <span class="discounted-price">$<?php echo htmlspecialchars(number_format($finalPrice, 2)); ?></span>
+                            <?php else: ?>
+                                $<?php echo htmlspecialchars(number_format($finalPrice, 2)); ?>
+                            <?php endif; ?>
+                        </td>
                         <td><span class="status-badge <?php echo $statusClass; ?>"><?php echo ucfirst(htmlspecialchars($row['status'])); ?></span></td>
                         <td class="actions">
                             <a href="room-form.php?id=<?php echo $row['id']; ?>" class="table-buttons edit-button" title="Edit Room">
@@ -92,12 +120,15 @@
             <?php
                 }
             } else {
-                echo '<tr><td colspan="7" class="no-records">No rooms found</td></tr>';
+                echo '<tr><td colspan="9" class="no-records">No rooms found</td></tr>';
             }
             ?>
         </tbody>
     </table>
     <p class="roomCount">Total: <?php echo $result->num_rows; ?> rooms</p>
 </div>
+
+<!-- Js File -->
+<script src="js/script.js?v<?= time(); ?>"></script>
 
 <?php require_once("includes/footer.php") ?>

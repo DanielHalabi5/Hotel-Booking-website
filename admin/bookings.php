@@ -1,7 +1,7 @@
 <?php
 
 include('../includes/connection.php');
-include('includes/tables-data.php');
+include('includes/booking-handlers.php');
 
 $filters = initializeBookingFilters();
 $search = $filters['search'];
@@ -69,11 +69,15 @@ $result = getBookings($conn, $search, $status, $date_from, $date_to, $sort_by, $
                     echo '<td>' . htmlspecialchars($row['room_number']) . '   (' . htmlspecialchars($row['room_type']) . ')</td>';
                     echo '<td>' . date('M d, Y', strtotime($row['check_in'])) . '</td>';
                     echo '<td>' . date('M d, Y', strtotime($row['check_out'])) . '</td>';
-                    echo '<td>$' . number_format($row['total_price'], 2) . '</td>';
+                    echo '<td>$' . number_format($row['total_price'], 2);
+                    if (isset($row['discount_percentage']) && $row['discount_percentage'] > 0) {
+                        echo ' <span class="discount-indicator">' . htmlspecialchars($row['discount_percentage']) . '% OFF</span>';
+                    }
+                    echo '</td>';
                     echo '<td>' . htmlspecialchars($row['booking_status']) . '</td>';
                     echo '<td>' . date('M d, Y', strtotime($row['booking_date'])) . '</td>';
                     echo '<td class="action-buttons">';
-                    echo '<a href="booking-form.php?id=' . $row['id'] . '" class="view-btn">Details</a>';
+                    echo '<a href="booking-form.php?id=' . $row['id'] . '" class="form-buttons view-btn">Details</a>';
                     echo '</td>';
                     echo '</tr>';
                 }
