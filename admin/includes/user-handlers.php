@@ -26,10 +26,8 @@ function getUsers($conn, $search = '', $role = '', $sort_by = 'id', $sort_order 
         $types .= "s";
     }
 
-    // Add sorting
     $query .= " ORDER BY $sort_by $sort_order";
 
-    // Prepare and execute query
     $stmt = $conn->prepare($query);
     if (!empty($params)) {
         $stmt->bind_param($types, ...$params);
@@ -51,7 +49,6 @@ function getUserDetails($conn, $user_id)
 // Function to add new user
 function addUser($conn, $userData)
 {
-    // Hash password
     $password_hash = password_hash($userData['password'], PASSWORD_DEFAULT);
 
     $query = "INSERT INTO users (full_name, email, phone, password, position)
@@ -123,7 +120,6 @@ function initializeUsersView($conn)
     $success_message = null;
     $error_message = null;
 
-    // Handle soft delete
     if (isset($_GET['soft_delete']) && is_numeric($_GET['soft_delete'])) {
         $user_id = $_GET['soft_delete'];
 
@@ -162,7 +158,6 @@ function initializeUsersView($conn)
 
 function processUserForm()
 {
-    // Check if we're editing a user
     $user_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
     $is_edit = $user_id > 0;
 
@@ -171,7 +166,6 @@ function processUserForm()
     $success_message = null;
     $error_message = null;
 
-    // If editing, fetch user data
     if ($is_edit) {
         $user = getUserDetails($conn, $user_id);
 
@@ -181,7 +175,6 @@ function processUserForm()
         }
     }
 
-    // Process form submission
     if (isset($_POST['action']) && ($_POST['action'] == 'add_user' || $_POST['action'] == 'update_user')) {
         $userData = [
             'full_name' => $_POST['full_name'],
@@ -192,16 +185,13 @@ function processUserForm()
         ];
 
 
-        // Validate data
         $is_valid = true;
 
-        // Email validation
         if (!filter_var($userData['email'], FILTER_VALIDATE_EMAIL)) {
             $error_message = "Invalid email format";
             $is_valid = false;
         }
 
-        // Check for duplicate email
         $emailCheckQuery = "SELECT id FROM users WHERE email = ? AND id != ?";
         $emailStmt = $conn->prepare($emailCheckQuery);
         $emailStmt->bind_param("si", $userData['email'], $user_id);
@@ -213,7 +203,6 @@ function processUserForm()
             $is_valid = false;
         }
 
-        // For new users, password is required
         if (!$is_edit && empty($userData['password'])) {
             $error_message = "Password is required for new users";
             $is_valid = false;
@@ -221,7 +210,6 @@ function processUserForm()
 
         if ($is_valid) {
             if ($is_edit) {
-                // Update existing user
                 if (updateUser($conn, $user_id, $userData)) {
                     $success_message = "User updated successfully!";
                     $user = getUserDetails($conn, $user_id); // Refresh user data
@@ -229,10 +217,8 @@ function processUserForm()
                     $error_message = "Error updating user: " . $conn->error;
                 }
             } else {
-                // Create new user
                 if (addUser($conn, $userData)) {
                     $success_message = "User added successfully!";
-                    // Clear form after successful addition
                     $user = null;
                 } else {
                     $error_message = "Error adding user: " . $conn->error;
@@ -252,18 +238,15 @@ function processUserForm()
 function getUserBookings($conn, $user_id) {
     $bookings = [];
     
-    // First check if 'number' column exists in the rooms table
     $columnsQuery = "SHOW COLUMNS FROM rooms LIKE 'number'";
     $columnsResult = $conn->query($columnsQuery);
     $numberColumnExists = $columnsResult->num_rows > 0;
     
     if ($numberColumnExists) {
-        // If 'number' column exists, use it
         $stmt = $conn->prepare("SELECT b.*, r.number as room_number FROM bookings b 
                                 LEFT JOIN rooms r ON b.room_id = r.id
                                 WHERE b.user_id = ? ORDER BY b.booking_date DESC");
     } else {
-        // If 'number' column doesn't exist, use room_id directly
         $stmt = $conn->prepare("SELECT b.* FROM bookings b 
                                 WHERE b.user_id = ? ORDER BY b.booking_date DESC");
     }

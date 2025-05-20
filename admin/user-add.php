@@ -2,7 +2,6 @@
 
 require_once('includes/user-handlers.php');
 
-// Process user form
 $formData = processUserForm();
 $user = $formData['user'];
 $is_edit = $formData['is_edit'];

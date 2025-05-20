@@ -3,8 +3,6 @@
 include('../includes/connection.php');
 include('includes/booking-handlers.php');
 
-// Add debugging
-error_log("Booking form loaded with ID: " . (isset($_GET['id']) ? $_GET['id'] : 'none'));
 
 if (isset($_GET['action'], $_GET['id']) && $_GET['action'] == 'cancel') {
     updateBookingStatus($conn, $_GET['id'], 'cancelled');
@@ -14,14 +12,10 @@ if (isset($_GET['action'], $_GET['id']) && $_GET['action'] == 'cancel') {
 
 $bookingData = processBookingForm();
 
-// Debug output
-error_log("Booking data: " . ($bookingData ? "Found" : "Not found"));
+
 
 if (!$bookingData) {
-    // Let's change this to be explicit about where we're redirecting
     header('Location: bookings.php?error=booking_not_found');
-    // You can also add a debug log here
-    error_log("Redirecting to bookings.php due to missing booking data");
     exit;
 }
 

@@ -29,7 +29,6 @@ handleRoomSoftDelete($conn);
             <select name="room_type">
                 <option value="">All Room Types</option>
                 <?php
-                // Reset the result pointer
                 $roomTypesResult->data_seek(0);
                 while ($roomType = $roomTypesResult->fetch_assoc()): ?>
                     <option value="<?php echo $roomType['id']; ?>" <?php if ($room_type == $roomType['id']) echo 'selected'; ?>>

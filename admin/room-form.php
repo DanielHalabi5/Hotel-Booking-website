@@ -1,6 +1,5 @@
 <?php include("includes/room-handlers.php");
 
-// Ensure we have the correct calculations for discounted prices
 if (isset($room['price_per_night']) && isset($room['discount_percentage'])) {
     if ($room['discount_percentage'] > 0) {
         $room['discounted_price'] = $room['price_per_night'] * (1 - $room['discount_percentage']/100);
@@ -136,7 +135,6 @@ if (isset($room['price_per_night']) && isset($room['discount_percentage'])) {
             <small class="form-text text-muted">Enter percentage discount for this specific room (0-100%)</small>
         </div>
 
-        <!-- If editing, show current base price and calculated discounted price -->
         <?php if (isset($room['price_per_night']) && isset($room['discount_percentage'])): ?>
         <div class="form-group">
             <label>Base Price:</label>

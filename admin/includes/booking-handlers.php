@@ -41,17 +41,10 @@ function getBookingDetails($conn, $booking_id)
                   LEFT JOIN room_types rt ON r.room_type_id = rt.id
                   WHERE b.id = ? AND b.deleted_at IS NULL AND b.booking_status IN ('pending', 'confirmed')";
 
-    // Debug output to see query and parameters
-    error_log("Query: " . $bookingQuery);
-    error_log("Booking ID: " . $booking_id);
-
     $stmt = $conn->prepare($bookingQuery);
     $stmt->bind_param("i", $booking_id);
     $stmt->execute();
     $result = $stmt->get_result();
-    
-    // Add debug to check number of rows returned
-    error_log("Number of rows: " . $result->num_rows);
     
     return $result->fetch_assoc();
 }
@@ -151,13 +144,7 @@ function processBookingForm()
         
         global $conn;
         
-        // Debug output to see what's happening
-        error_log("Processing booking ID: " . $booking_id);
-        
         $booking = getBookingDetails($conn, $booking_id);
-        
-        // Debug check if booking is found
-        error_log("Booking found: " . ($booking ? "Yes" : "No"));
         
         if ($booking) {
             $check_in = new DateTime($booking['check_in']);
@@ -167,7 +154,6 @@ function processBookingForm()
             $success_message = null;
             $error_message = null;
             
-            // Update booking status if form submitted
             if (isset($_POST['update_status'])) {
                 $new_status = $_POST['booking_status'];
                 
@@ -186,10 +172,7 @@ function processBookingForm()
                 'success_message' => isset($success_message) ? $success_message : null,
                 'error_message' => isset($error_message) ? $error_message : null
             ];
-        } else {
-            // Debug - If booking not found, check why
-            error_log("Booking with ID $booking_id not found");
-        }
+        } 
     }
     
     return null;
