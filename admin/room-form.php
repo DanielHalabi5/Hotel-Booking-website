@@ -32,6 +32,7 @@ if (isset($room['price_per_night']) && isset($room['discount_percentage'])) {
     <i class="fas fa-arrow-left"></i> Back to Rooms
 </a>
 
+<!-- If inserting a Room Type  -->
 <?php if ($is_room_type): ?>
     <!-- Room Type Form -->
     <form action="" method="post" class="room-form" enctype="multipart/form-data">
@@ -93,6 +94,9 @@ if (isset($room['price_per_night']) && isset($room['discount_percentage'])) {
             </button>
         </div>
     </form>
+    <!-- End Room Type Form -->
+
+    <!-- If inserting a New Room -->
 <?php else: ?>
     <!-- Room Form -->
     <form method="post" class="room-form">
@@ -158,5 +162,7 @@ if (isset($room['price_per_night']) && isset($room['discount_percentage'])) {
         </button>
     </form>
 <?php endif; ?>
+    <!-- EndRoom Form -->
+
 
 <?php include("includes/footer.php") ?>

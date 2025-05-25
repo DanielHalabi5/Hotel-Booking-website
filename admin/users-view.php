@@ -48,10 +48,12 @@ $error_message = $pageData['error_message'];
         </button>
     </form>
 </div>
+<!-- End Filters Section -->
+
 
 <!-- Users Table -->
 <div class="table-responsive">
-    <table class="users-table">
+    <table class="users-bookings-table">
         <thead>
             <tr>
                 <th onclick="sortUserTable('id')">ID</th>
@@ -88,8 +90,11 @@ $error_message = $pageData['error_message'];
             ?>
         </tbody>
     </table>
+</div>
+<!-- End Users Table -->
 
-    <!-- Js File -->
-    <script src="js/script.js?v<?= time(); ?>"></script>
 
-    <?php require_once("includes/footer.php") ?>
+<!-- Js File -->
+<script src="js/script.js?v<?= time(); ?>"></script>
+
+<?php require_once("includes/footer.php") ?>

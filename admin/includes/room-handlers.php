@@ -1,6 +1,7 @@
 <?php
 
 include('../includes/connection.php');
+include("admin-handlers.php");
 
 // ROOMS HANDLERS
 
@@ -20,9 +21,9 @@ $status = isset($_GET['status']) ? $_GET['status'] : '';
 $query = "SELECT r.id, r.room_number, r.status, r.discount_percentage, rt.name as room_type,
     rt.price_per_night, rt.capacity, rt.category,
     CASE
-         WHEN r.discount_percentage > 0 
-              THEN rt.price_per_night * (1 - r.discount_percentage/100) 
-              ELSE rt.price_per_night 
+        WHEN r.discount_percentage > 0 
+                THEN rt.price_per_night * (1 - r.discount_percentage/100) 
+                ELSE rt.price_per_night 
     END as discounted_price
     FROM rooms r
     LEFT JOIN room_types rt ON r.room_type_id = rt.id
@@ -160,11 +161,9 @@ if (isset($_POST['submit_room_type'])) {
     $room_size = $_POST['room_size'];
     $category = $_POST['category'];
 
-
-    // Handle image upload
     $image_url = '';
     if (isset($_FILES['room_image']) && $_FILES['room_image']['error'] == 0) {
-        $upload_dir = '../uploads/rooms/';
+        $upload_dir = '../../image/upload/room';
 
         if (!file_exists($upload_dir)) {
             mkdir($upload_dir, 0777, true);
@@ -215,7 +214,7 @@ if (isset($_POST['submit_room_type'])) {
     } else {
         // Insert new room type
         $insertQuery = "INSERT INTO room_types (name, description, price_per_night, capacity, 
-                       room_size, category, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                        room_size, category, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($insertQuery);
         $stmt->bind_param("ssdisss", $name, $description, $price_per_night, $capacity, $room_size, $category, $image_url);
 

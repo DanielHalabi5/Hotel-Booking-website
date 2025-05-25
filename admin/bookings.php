@@ -43,7 +43,7 @@ $result = getBookings($conn, $search, $status, $date_from, $date_to, $sort_by, $
 
 <!-- Bookings Table -->
 <div class="table-responsive">
-    <table class="booking-table">
+    <table class="users-bookings-table">
         <thead>
             <tr>
                 <th onclick="sortTable('id')">Booking ID</th>

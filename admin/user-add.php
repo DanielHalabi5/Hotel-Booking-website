@@ -19,6 +19,7 @@ $active_section = 'bookings';
 
 <?php include("includes/header.php") ?>
 
+<!-- Check if Editing a user or Adding a New User -->
 <h1><?php echo $is_edit ? 'Edit User: ' . htmlspecialchars($user['full_name']) : 'Add New User'; ?></h1>
 
 <?php if (isset($success_message)): ?>
@@ -39,6 +40,7 @@ $active_section = 'bookings';
     </a>
 </div>
 
+<!-- Add User Form -->
 <div class="user-form-container">
     <form method="POST" action="" class="user-form">
         <div class="form-group">
@@ -78,15 +80,17 @@ $active_section = 'bookings';
 
         <input type="hidden" name="user_id" value="<?php echo $is_edit ? $user['id'] : ''; ?>">
         <input type="hidden" name="action" value="<?php echo $is_edit ? 'update_user' : 'add_user'; ?>">
+        
+        <div class="user-form-button">
+            <button type="submit" class="form-buttons edit-button">
+                <?php echo $is_edit ? 'Update User' : 'Create User'; ?>
+            </button>
+            <a href="users-view.php" class="form-buttons delete-button">Cancel</a>
+        </div>
     </form>
-
-    <div class="user-form-button">
-        <button type="submit" class="form-buttons edit-button">
-            <?php echo $is_edit ? 'Update User' : 'Create User'; ?>
-        </button>
-        <a href="users-view.php" class="form-buttons delete-button">Cancel</a>
-    </div>
 </div>
+<!-- End Add User Form -->
+
 
 <!-- Bookings Section -->
 <div class="table-responsive <?php echo $active_section === 'bookings' ? 'active' : ''; ?>">
@@ -95,7 +99,7 @@ $active_section = 'bookings';
     <?php if (empty($bookings)): ?>
         <p> you have no bookings yet.</p>
     <?php else: ?>
-        <table class="users-table">
+        <table class="users-bookings-table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -125,5 +129,7 @@ $active_section = 'bookings';
         </table>
     <?php endif; ?>
 </div>
+<!-- End Bookings Section -->
+
 
 <?php include("includes/footer.php") ?>

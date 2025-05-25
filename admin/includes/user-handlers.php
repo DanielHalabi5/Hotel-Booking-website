@@ -1,6 +1,7 @@
 <?php
 
 include('../includes/connection.php');
+include("admin-handlers.php");
 
 // Function to get users list with filters
 function getUsers($conn, $search = '', $role = '', $sort_by = 'id', $sort_order = 'ASC')

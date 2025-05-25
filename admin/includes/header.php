@@ -14,29 +14,36 @@
         <div class="sidebar" id="sidebar">
             <h3 class="DBLogo" id="DBLogo"> Vellora Hotel</h3>
             <div class="sidebar_user">
-                <span>Username</span>
+                <span><?php echo $full_name?></span>
             </div>
             <div class="sidebar_menu">
                 <ul class="MenuList">
                     <li class="liMainMenu">
                         <a href="./dashboard.php"><i class="fa fa-dashboard "></i> <span class="menuText">Dashboard</span></a>
                     </li>
-                    <li class="liMainMenu showHideSideMenu">
+                    <li class="liMainMenu">
                         <a href="rooms.php">
-                            <i class="fa-solid fa-key showHideSideMenu"></i>
-                            <span class="menuText showHideSideMenu"> Rooms </span>
+                            <i class="fa-solid fa-key"></i>
+                            <span class="menuText"> Rooms </span>
                         </a>
                     </li>
-                    <li class="liMainMenu showHideSideMenu">
+                    <li class="liMainMenu">
                         <a href="bookings.php">
-                            <i class="fa fa-bed showHideSideMenu"></i>
-                            <span class="menuText showHideSideMenu"> Bookings </span>
+                            <i class="fa fa-bed"></i>
+                            <span class="menuText"> Bookings </span>
                         </a>
                     </li>
-                    <li class="liMainMenu showHideSideMenu">
+                    <li class="liMainMenu">
                         <a href="users-view.php">
-                            <i class="fa fa-user-plus showHideSideMenu"></i>
-                            <span class="menuText showHideSideMenu"> User </span>
+                            <i class="fa fa-user-plus"></i>
+                            <span class="menuText"> User </span>
+                        </a>
+                    </li>
+
+                    <li class="liMainMenu">
+                        <a href="includes/logout.php">
+                            <i class="fa fa-power-off"></i>
+                            <span class="menuText"> LogOut </span>
                         </a>
                     </li>
 

@@ -9,6 +9,18 @@ handleRoomSoftDelete($conn);
 
 <h1 class="section_header">Room Management</h1>
 
+<?php if (isset($success_message)): ?>
+    <div class="alert alert-success">
+        <?php echo $success_message; ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($error_message)): ?>
+    <div class="alert alert-danger">
+        <?php echo $error_message; ?>
+    </div>
+<?php endif; ?>
+
 <!-- Action Buttons -->
 <div class="action-buttons">
     <a href="room-form.php" class="form-buttons nav-button">
@@ -18,6 +30,8 @@ handleRoomSoftDelete($conn);
         <i class="fas fa-plus"></i> Add Room Type
     </a>
 </div>
+<!-- End Action Buttons -->
+
 
 <!-- Filter Form -->
 <div class="filter-container">
@@ -59,6 +73,8 @@ handleRoomSoftDelete($conn);
         </a>
     </form>
 </div>
+<!-- End Filter Form -->
+
 
 <!-- Rooms Table -->
 <div class="rooms">
@@ -126,6 +142,8 @@ handleRoomSoftDelete($conn);
     </table>
     <p class="roomCount">Total: <?php echo $result->num_rows; ?> rooms</p>
 </div>
+<!-- End Rooms Table -->
+
 
 <!-- Js File -->
 <script src="js/script.js?v<?= time(); ?>"></script>

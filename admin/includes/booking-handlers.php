@@ -1,6 +1,7 @@
 <?php
 
     include("../includes/connection.php");
+    include("admin-handlers.php");
 
 
 // Function to initialize booking filters
@@ -27,19 +28,19 @@ function initializeBookingFilters()
 function getBookingDetails($conn, $booking_id)
 {
     $bookingQuery = "SELECT b.*, u.full_name as guest_name, u.email as guest_email, 
-                  u.phone as guest_phone, r.room_number, r.discount_percentage, 
-                  rt.name as room_type, rt.description as room_description, 
-                  rt.price_per_night, rt.capacity, rt.room_size, rt.category,
-                  CASE
-                      WHEN r.discount_percentage > 0 
-                          THEN rt.price_per_night * (1 - r.discount_percentage/100) 
-                          ELSE rt.price_per_night 
-                  END as discounted_price_per_night
-                  FROM bookings b
-                  LEFT JOIN users u ON b.user_id = u.id
-                  LEFT JOIN rooms r ON b.room_id = r.id
-                  LEFT JOIN room_types rt ON r.room_type_id = rt.id
-                  WHERE b.id = ? AND b.deleted_at IS NULL AND b.booking_status IN ('pending', 'confirmed')";
+                    u.phone as guest_phone, r.room_number, r.discount_percentage, 
+                    rt.name as room_type, rt.description as room_description, 
+                    rt.price_per_night, rt.capacity, rt.room_size, rt.category,
+                    CASE
+                        WHEN r.discount_percentage > 0 
+                            THEN rt.price_per_night * (1 - r.discount_percentage/100) 
+                            ELSE rt.price_per_night 
+                    END as discounted_price_per_night
+                    FROM bookings b
+                    LEFT JOIN users u ON b.user_id = u.id
+                    LEFT JOIN rooms r ON b.room_id = r.id
+                    LEFT JOIN room_types rt ON r.room_type_id = rt.id
+                    WHERE b.id = ?  AND b.booking_status IN ('pending', 'confirmed')";
 
     $stmt = $conn->prepare($bookingQuery);
     $stmt->bind_param("i", $booking_id);
@@ -65,15 +66,14 @@ function getBookings($conn, $search = '', $status = '', $date_from = '', $date_t
             FROM bookings b
             LEFT JOIN users u ON b.user_id = u.id
             LEFT JOIN rooms r ON b.room_id = r.id
-            LEFT JOIN room_types rt ON r.room_type_id = rt.id
-            WHERE b.deleted_at IS NULL";
+            LEFT JOIN room_types rt ON r.room_type_id = rt.id";
 
     $params = [];
     $types = "";
 
     if (!empty($search)) {
         $query .= " AND (b.id LIKE ? OR u.full_name LIKE ? OR 
-                      r.room_number LIKE ? OR rt.name LIKE ?)";
+                    r.room_number LIKE ? OR rt.name LIKE ?)";
         $search_param = "%$search%";
         $params[] = $search_param;
         $params[] = $search_param;
