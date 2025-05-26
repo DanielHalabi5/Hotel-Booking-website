@@ -1,13 +1,13 @@
-<?php include("includes/login-auth.php") ?>
-
 <?php include("includes/header.php") ?>
+
 <div class="main-content">
     <div class="signup-container">
         <div class="signup-form-wrapper">
             <h2>Create Your Account</h2>
             <p class="form-subtitle">Join Vellora and experience luxury by the ocean</p>
 
-            <form class="signup-form" action="database/register.php" method="POST">
+            <!-- Sign Up Form -->
+            <form class="signup-form" action="includes/login-functions.php" method="POST">
                 <div class="form-group">
                     <label for="fullname">Full Name</label>
                     <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
@@ -54,8 +54,9 @@
 
                 <p class="login-link">Already have an account? <a href="login.php">Log In</a></p>
             </form>
+
         </div>
     </div>
 </div>
 
-<?php include("includes/footer.php")?>
+<?php include("includes/footer.php") ?>

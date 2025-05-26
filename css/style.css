@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 /* Set core body defaults */
 body {
   min-height: 100vh;
@@ -6,7 +10,7 @@ body {
   line-height: 1.5;
   font-family: Arial, sans-serif;
   margin: 0;
-  background: url('../image/indexPagePic.jpg') center center;
+  background: url("../image/indexPagePic.jpg") center center;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -33,7 +37,7 @@ div.header {
   z-index: 10;
 }
 
-div.header h2{
+div.header h2 {
   display: inline;
   color: #e3f2fd;
   padding: 8px 15px;
@@ -42,7 +46,7 @@ div.header h2{
   transition: all 0.3s ease;
 }
 
-div.header a{
+div.header a {
   font-size: 25px;
   color: #e3f2fd;
   padding: 8px 15px;
@@ -51,10 +55,11 @@ div.header a{
   transition: all 0.3s ease;
 }
 
-div.header a:hover , h2:hover{
+div.header a:hover,
+h2:hover {
   border: 3px solid #115b60;
   border-radius: 5px;
-  font-weight: bold ;
+  font-weight: bold;
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -78,7 +83,7 @@ div.nav {
 }
 
 div.banner {
-  background: url('../image/indexPagePic.jpg') center center;
+  background: url("../image/indexPagePic.jpg") center center;
   background-size: cover;
   background-repeat: no-repeat;
   padding: 60px 0;
@@ -210,7 +215,8 @@ div.BannerIcons a:hover {
   overflow: hidden;
 }
 
-.contact-info, .contact-form {
+.contact-info,
+.contact-form {
   flex: 1;
   min-width: 300px;
   padding: 20px;
@@ -221,7 +227,8 @@ div.BannerIcons a:hover {
   color: #ffffff;
 }
 
-.contact-info h3, .contact-form h3 {
+.contact-info h3,
+.contact-form h3 {
   margin-bottom: 15px;
   color: #e3f2fd;
   font-size: 1.5rem;
@@ -247,8 +254,8 @@ div.BannerIcons a:hover {
 }
 
 .social-icons {
-      margin-top: 60px;
-    text-align: center;
+  margin-top: 60px;
+  text-align: center;
 }
 
 .social-icons a {
@@ -286,7 +293,8 @@ div.BannerIcons a:hover {
   text-align: left;
 }
 
-.form-group input, .form-group textarea {
+.form-group input,
+.form-group textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid rgba(17, 91, 96, 0.3);
@@ -297,7 +305,8 @@ div.BannerIcons a:hover {
   transition: all 0.3s ease;
 }
 
-.form-group input:focus, .form-group textarea:focus {
+.form-group input:focus,
+.form-group textarea:focus {
   border-color: #115b60;
   box-shadow: 0 0 8px rgba(17, 91, 96, 0.3);
   outline: none;
@@ -334,16 +343,16 @@ div.BannerIcons a:hover {
   .contact-container {
     flex-direction: column;
   }
-  
-  .contact-info, .contact-form {
+
+  .contact-info,
+  .contact-form {
     width: 100%;
   }
-  
+
   .contact-section h2 {
     font-size: 2.2rem;
   }
 }
-
 
 /* Signup.php */
 
@@ -554,21 +563,21 @@ button.signup-button:hover {
 /* Responsive styles */
 @media (max-width: 768px) {
   .signup-container {
-      margin: 20px auto;
-      max-width: 90%;
+    margin: 20px auto;
+    max-width: 90%;
   }
-  
+
   .signup-form-wrapper {
-      padding: 30px 20px;
+    padding: 30px 20px;
   }
-  
+
   .form-row {
-      flex-direction: column;
-      gap: 20px;
+    flex-direction: column;
+    gap: 20px;
   }
-  
+
   .half {
-      width: 100%;
+    width: 100%;
   }
 }
 
@@ -780,97 +789,183 @@ button.login-button:hover {
 /* Responsive styles */
 @media (max-width: 768px) {
   .login-container {
-      margin: 30px auto;
-      max-width: 90%;
+    margin: 30px auto;
+    max-width: 90%;
   }
-  
+
   .login-form-wrapper {
-      padding: 30px 20px;
+    padding: 30px 20px;
   }
 }
 
-/* Style for focus state with keyboard navigation */
+
 :focus-visible {
   outline: 3px solid rgba(51, 51, 51, 0.5);
   outline-offset: 2px;
 }
 
 
-/* Booking page CSS */
-  .booking{
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    margin: 10px;
-  }
-    .booking-container {
-            background: white;
-            padding: 30px;
-            width: 400px;
-            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            text-align: left;
-        }
+.booking {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  margin: 10px;
+}
+.booking-container {
+  background: white;
+  padding: 30px;
+  width: 400px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  text-align: left;
+}
 
-        .booking-container h2 {
-            color: #333;
-            font-size: 26px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 8px;
-        }
+.booking-container h2 {
+  color: #333;
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 8px;
+}
 
-        .booking-container p {
-            text-align: center;
-            color: #777;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
+.booking-container p {
+  text-align: center;
+  color: #777;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
 
-        .booking-container label {
-            display: block;
-            font-weight: bold;
-            margin-top: 15px;
-            color: #333;
-            font-size: 14px;
-        }
+.booking-container label {
+  display: block;
+  font-weight: bold;
+  margin-top: 15px;
+  color: #333;
+  font-size: 14px;
+}
 
-        .booking-container select, input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 16px;
-            background: #f8f8f8;
-        }
+.booking-container select,
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  background: #f8f8f8;
+}
 
-        .total-price {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
-            margin-top: 20px;
-        }
+.total-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-top: 20px;
+}
 
-        .submit-button {
-            width: 100%;
-            padding: 15px;
-            margin-top: 20px;
-            background: #333;
-            color: white;
-            border: none;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-        }
+.submit-button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  background: #333;
+  color: white;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
 
-        .submit-button:hover {
-            background: #555;
-        }
+.submit-button:hover {
+  background: #555;
+}
+
+
+.user-menu {
+  display: inline-block;
+  position: relative;
+}
+
+.user-link {
+  display: inline-block !important;
+  padding: 10px 15px !important;
+  cursor: pointer !important;
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+a.user-link {
+  color: #e3f2fd !important;
+  text-transform: capitalize;
+}
+
+.user-dropdown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0;
+  border-radius: 4px;
+}
+
+.user-dropdown a {
+  font-size: 18px !important;
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  background: #115b60;
+}
+
+.user-dropdown a:hover {
+  background-color: #f1f1f1;
+  color: #115b60;
+}
+
+.user-menu:hover .user-dropdown {
+  display: block;
+}
+
+
+.banner {
+  height: 80vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0 20px;
+  z-index: 5;
+}
+
+.BannerHeader {
+  max-width: 800px;
+  color: #ffffff;
+}
+
+.BannerHeader h1 {
+  color: #115b60;
+  font-size: 48px;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.BannerHeader p {
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.BannerTagline {
+  font-size: 18px !important;
+  margin-bottom: 30px !important;
+  font-style: italic;
+}

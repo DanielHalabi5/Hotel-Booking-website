@@ -17,3 +17,30 @@ function calculateTotal() {
     const totalPrice = pricePerNight * numNights;
     document.getElementById("totalPrice").textContent = totalPrice;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const userMenu = document.querySelector('.user-menu');
+    if (userMenu) {
+        const userLink = userMenu.querySelector('.user-link');
+        const userDropdown = userMenu.querySelector('.user-dropdown');
+
+        if (userLink && userDropdown) {
+            userLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (userDropdown.style.display === 'block') {
+                    userDropdown.style.display = 'none';
+                } else {
+                    userDropdown.style.display = 'block';
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!userMenu.contains(e.target)) {
+                    userDropdown.style.display = 'none';
+                }
+            });
+        }
+    }
+});

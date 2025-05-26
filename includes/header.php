@@ -1,4 +1,14 @@
-<?php require_once 'includes/functions.php'; ?>
+<?php 
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once 'includes/functions.php';
+
+$logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+$full_name = $logged_in ? $_SESSION['full_name'] : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,8 +16,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vellora Hotel</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=<?= time() ?>">
+    <script src="js/main.js?v=<?= time() ?>"></script>
     <script src="https://kit.fontawesome.com/354cef8def.js" crossorigin="anonymous"></script>
 </head>
 
@@ -17,9 +27,20 @@
             <h2> Vellora </h2>
             <a href="index.php">Home</a>
             <a href="login.php">Menu</a>
-            <a href="login.php">Contact Us</a>
-            <a href="login.php">LogIn</a>
+            <a href="#contact-section">Contact Us</a>
+
+            <?php if ($logged_in): ?>
+                <div class="user-menu">
+                    <a href="javascript:void(0);" class="user-link"><?php echo htmlspecialchars($full_name); ?></a>
+                    <div class="user-dropdown">
+                        <a href="user-profile.php">My Profile</a>
+                        <a href="user-profile.php">My Bookings</a>
+                        <a href="includes/logout.php">Logout</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <a href="login.php">Login</a>
+                <a href="signup.php">Sign Up</a>
+            <?php endif; ?>
         </div>
     </div>
-
-    <!-- Pages Content -->

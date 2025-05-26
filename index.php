@@ -1,20 +1,42 @@
 <?php include('includes/header.php') ?>
-<div class="main-content">
-    <div class="nav">
-        <div class="BannerHeader">
-            <h1>Vellora</h1>
-            <p>Where Ocean Meets Luxury</p>
-        </div>
-        <p class="BannerTagline">Escape to a haven of coastal elegance, where breathtaking views, refined comfort, and personalized hospitality await. Unwind, explore, and indulge in serenity.
-            Your seaside sanctuary awaits.
-        </p>
-        <div class="signup-button">
-            <a href="signup.php">Sign Up Now</a>
+
+<!-- Sign up -->
+
+<?php if (!$logged_in): ?>
+    <div class="main-content">
+        <div class="nav">
+            <div class="BannerHeader">
+                <h1>Vellora</h1>
+                <p>Where Ocean Meets Luxury</p>
+            </div>
+            <p class="BannerTagline">Escape to a haven of coastal elegance, where breathtaking views, refined comfort, and personalized hospitality await. Unwind, explore, and indulge in serenity.
+                Your seaside sanctuary awaits.
+            </p>
+            <div class="signup-button">
+                <a href="signup.php">Sign Up Now</a>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Contact Section -->
+    <!-- Book now -->
+
+    <?php else: ?>
+    <div class="banner">
+        <div class="BannerHeader">
+            <h1>Vellora Hotel</h1>
+            <p>Experience Luxury & Comfort</p>
+            <p class="BannerTagline">Where unforgettable memories await in an oasis of elegance and tranquility</p>
+            <div class="signup-button">
+                <a href="booking.php">Book Now</a>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
+
+
+<!-- Contact us -->
+
 <div id="contact-section" class="contact-section">
     <h2>Contact Us</h2>
     <div class="contact-container">
@@ -51,6 +73,7 @@
         </div>
     </div>
 </div>
+
 
 
 <?php require_once 'includes/footer.php'; ?>
