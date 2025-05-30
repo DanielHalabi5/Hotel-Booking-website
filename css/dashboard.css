@@ -196,6 +196,67 @@ div.sidebar_user span {
   font-weight: bold;
 }
 
+/* Menu Styles
+-------------------------------------------------- */
+ul.MenuList {
+  margin-top: 20px;
+}
+
+ul.MenuList li.liMainMenu {
+  text-transform: uppercase;
+}
+
+ul.MenuList li.liMainMenu a {
+  text-decoration: none;
+  color: #e3f2fd;
+  display: block;
+  font-size: 14px;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+ul.MenuList li.liMainMenu a i {
+  font-size: 20px;
+  width: 30px;
+}
+
+ul.MenuList li.liMainMenu:hover {
+  background: #0a3b3e;
+  color: white;
+  transition: 0.3s all;
+}
+
+a.subMenuLink {
+  padding-left: 35px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-transform: none;
+  font-size: 13px;
+}
+
+a.subMenuLink i {
+  font-size: 16px !important; 
+}
+
+ul.subMenus {
+  background: #0a3b3e;
+  display: none;
+}
+
+i.mainMenuIconArrow {
+  float: right;
+  font-size: 14px !important;
+  padding-top: 8px;
+  padding-right: 10px;
+}
+
+.subMenuActive {
+  font-weight: bold;
+  border-top: 2px solid #e3f2fd;
+  border-bottom: 2px solid #e3f2fd;
+  background: rgba(227, 242, 253, 0.1);
+}
+
 /* Dashboard Management Styles
 -------------------------------------------------- */
 
@@ -393,7 +454,7 @@ div.sidebar_user span {
   border-radius: 4px;
 }
 
-/* Booking table */
+/* ----------Booking table--------> */
 .booking-table {
   width: 100%;
   border-collapse: collapse;
@@ -566,4 +627,32 @@ div.sidebar_user span {
   flex-direction: column;
   justify-content: center;
   gap: 15px;
+}
+
+/* Alert Message  Styles
+-------------------------------------------------- */
+.alert {
+    padding: 15px 0;
+    border-radius: 8px;
+    margin: 15px auto;
+    width: 100%;
+    max-width: 500px;
+    font-size: 16px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+
+.alert-success {
+  display: flex;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }

@@ -12,6 +12,19 @@ if (isset($room['price_per_night']) && isset($room['discount_percentage'])) {
 
 <?php include("includes/header.php") ?>
 
+
+<?php if (isset($success_message) && (!empty($success_message))): ?>
+    <div class="alert alert-success">
+        <?php echo $success_message; ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($error_message) && (!empty($error_message))): ?>
+    <div class="alert alert-danger">
+        <?php echo $error_message; ?>
+    </div>
+<?php endif; ?>
+
 <h1 class="section_header">
     <?php echo $is_room_type ? "Room Type" : "Room"; ?> <?php echo $is_edit ? "Edit" : "Add"; ?>
 </h1>

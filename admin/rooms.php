@@ -9,13 +9,13 @@ handleRoomSoftDelete($conn);
 
 <h1 class="section_header">Room Management</h1>
 
-<?php if (isset($success_message)): ?>
+<?php if (isset($success_message) && (!empty($success_message))): ?>
     <div class="alert alert-success">
         <?php echo $success_message; ?>
     </div>
 <?php endif; ?>
 
-<?php if (isset($error_message)): ?>
+<?php if (isset($error_message) && (!empty($error_message))): ?>
     <div class="alert alert-danger">
         <?php echo $error_message; ?>
     </div>

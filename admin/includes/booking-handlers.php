@@ -40,7 +40,7 @@ function getBookingDetails($conn, $booking_id)
                     LEFT JOIN users u ON b.user_id = u.id
                     LEFT JOIN rooms r ON b.room_id = r.id
                     LEFT JOIN room_types rt ON r.room_type_id = rt.id
-                    WHERE b.id = ?  AND b.booking_status IN ('pending', 'confirmed')";
+                    WHERE b.id = ? ";
 
     $stmt = $conn->prepare($bookingQuery);
     $stmt->bind_param("i", $booking_id);

@@ -5,6 +5,10 @@ include("admin-handlers.php");
 
 // ROOMS HANDLERS
 
+
+$success_message = '';
+$error_message = '';
+
 $room_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $is_edit = $room_id > 0;
 $is_room_type = isset($_GET['type']) && $_GET['type'] === 'new';
@@ -117,7 +121,7 @@ if (isset($_POST['submit_room'])) {
 
     $discount_percentage = max(0, min(100, $discount_percentage));
 
-  if ($is_edit) {
+    if ($is_edit) {
         $updateQuery = "UPDATE rooms SET room_number = ?, room_type_id = ?, status = ?, discount_percentage = ? WHERE id = ?";
         $stmt = $conn->prepare($updateQuery);
         $stmt->bind_param("sisdi", $room_number, $room_type_id, $status, $discount_percentage, $room_id);
@@ -125,7 +129,6 @@ if (isset($_POST['submit_room'])) {
         if ($stmt->execute()) {
             $success_message = "Room updated successfully!";
 
-            // Refresh room data after update
             $roomQuery = "SELECT r.*, rt.id as room_type_id, rt.price_per_night, 
                         rt.price_per_night * (1 - r.discount_percentage/100) as discounted_price
                         FROM rooms r
@@ -163,7 +166,7 @@ if (isset($_POST['submit_room_type'])) {
 
     $image_url = '';
     if (isset($_FILES['room_image']) && $_FILES['room_image']['error'] == 0) {
-        $upload_dir = '../../image/upload/room';
+        $upload_dir = '../image/uploads/rooms/';
 
         if (!file_exists($upload_dir)) {
             mkdir($upload_dir, 0777, true);
@@ -175,7 +178,7 @@ if (isset($_POST['submit_room_type'])) {
         $check = getimagesize($_FILES['room_image']['tmp_name']);
         if ($check !== false) {
             if (move_uploaded_file($_FILES['room_image']['tmp_name'], $target_file)) {
-                $image_url = 'uploads/rooms/' . $file_name;
+                $image_url = 'image/uploads/rooms/' . $file_name;
             } else {
                 $error_message = "Error uploading file.";
             }
@@ -231,6 +234,8 @@ if (isset($_POST['submit_room_type'])) {
 // Handle soft delete
 function handleRoomSoftDelete($conn)
 {
+
+    global $success_message, $error_message;
     if (isset($_GET['soft_delete']) && is_numeric($_GET['soft_delete']) && isset($_GET['type']) && $_GET['type'] == 'room') {
         $room_id = $_GET['soft_delete'];
         $current_time = date('Y-m-d H:i:s');
@@ -248,5 +253,8 @@ function handleRoomSoftDelete($conn)
             $error_message = "Error marking room as deleted: " . $conn->error;
         }
         $stmt->close();
+    }
+    if (isset($_GET['deleted']) && $_GET['deleted'] == '1') {
+        $success_message = "Room marked as deleted successfully!";
     }
 }
